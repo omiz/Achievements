@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="20A5323l" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
+    <entity name="MBAchievement" representedClassName="MBAchievement" syncable="YES" codeGenerationType="class">
+        <attribute name="detail" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <relationship name="goal" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MBGoal" inverseName="achievement" inverseEntity="MBGoal"/>
+        <relationship name="mediaObjects" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MBMediaObject" inverseName="achievement" inverseEntity="MBMediaObject"/>
+    </entity>
+    <entity name="MBAudioClip" representedClassName="MBAudioClip" parentEntity="MBMediaObject" syncable="YES" codeGenerationType="class"/>
+    <entity name="MBGoal" representedClassName="MBGoal" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <relationship name="achievement" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MBAchievement" inverseName="goal" inverseEntity="MBAchievement"/>
+        <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MBUser" inverseName="goals" inverseEntity="MBUser"/>
+    </entity>
+    <entity name="MBImage" representedClassName="MBImage" parentEntity="MBMediaObject" syncable="YES" codeGenerationType="class"/>
+    <entity name="MBMediaObject" representedClassName="MBMediaObject" isAbstract="YES" syncable="YES" codeGenerationType="class">
+        <attribute name="data" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
+        <attribute name="fileExtension" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <relationship name="achievement" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MBAchievement" inverseName="mediaObjects" inverseEntity="MBAchievement"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="id"/>
+                <constraint value="achievement"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <entity name="MBUser" representedClassName="MBUser" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="username" optional="YES" attributeType="String"/>
+        <relationship name="goals" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MBGoal" inverseName="user" inverseEntity="MBGoal"/>
+    </entity>
+    <configuration name="Cloud"/>
+    <configuration name="Local"/>
+    <elements>
+        <element name="MBAchievement" positionX="-63" positionY="-18" width="128" height="104"/>
+        <element name="MBImage" positionX="-54" positionY="18" width="128" height="29"/>
+        <element name="MBAudioClip" positionX="-36" positionY="36" width="128" height="29"/>
+        <element name="MBGoal" positionX="-27" positionY="63" width="128" height="74"/>
+        <element name="MBMediaObject" positionX="-18" positionY="72" width="128" height="89"/>
+        <element name="MBUser" positionX="9" positionY="108" width="128" height="74"/>
+    </elements>
+</model>
